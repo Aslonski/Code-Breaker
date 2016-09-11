@@ -29,8 +29,14 @@ Then /^I should see "([^""]*)"$/ do |message|
 end
 
 Given /^the secret code is "([^""]*)"$/ do |secret|
-	game = Codebreaker::Game.new(terminal_output)
-	game.start(secret)
+	@game = Codebreaker::Game.new(terminal_output)
+	@game.start(secret)
 end
 
+When /^I guess "([^'']*)"$/ do |guess|
+	@game.guess(guess)
+end
 
+Then /^the mark should be "([^'']*)"$/ do |mark|
+	expect(terminal_output.messages).to include(mark)
+end
