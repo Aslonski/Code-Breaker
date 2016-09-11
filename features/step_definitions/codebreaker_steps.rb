@@ -21,11 +21,16 @@ end
 
 When /^I start a new game$/ do
 	game = Codebreaker::Game.new(terminal_output)
-	game.start
+	game.start('1234')
 end
 
 Then /^I should see "([^""]*)"$/ do |message|
 	expect(terminal_output.messages).to include(message)
+end
+
+Given /^the secret code is "([^""]*)"$/ do |secret|
+	game = Codebreaker::Game.new(terminal_output)
+	game.start(secret)
 end
 
 
